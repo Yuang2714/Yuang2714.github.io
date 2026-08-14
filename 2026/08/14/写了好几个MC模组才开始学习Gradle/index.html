@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="referrer" content="no-referrer">
 
-<title>Init | Yuang2714的博客</title>
+<title>写了好几个MC模组才开始学习Gradle? | Yuang2714的博客</title>
 
 
 
@@ -15,7 +15,7 @@
 
 
 <!-- Canonical -->
-<link rel="canonical" href="/2026/08/14/Init/">
+<link rel="canonical" href="/2026/08/14/%E5%86%99%E4%BA%86%E5%A5%BD%E5%87%A0%E4%B8%AAMC%E6%A8%A1%E7%BB%84%E6%89%8D%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0Gradle/">
 
 <!-- Favicon -->
 <link rel="icon" href="/images/favicon.ico">
@@ -25,14 +25,14 @@
 
 <!-- Open Graph -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="Init">
-<meta property="og:url" content="/2026/08/14/Init/">
+<meta property="og:title" content="写了好几个MC模组才开始学习Gradle?">
+<meta property="og:url" content="/2026/08/14/%E5%86%99%E4%BA%86%E5%A5%BD%E5%87%A0%E4%B8%AAMC%E6%A8%A1%E7%BB%84%E6%89%8D%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0Gradle/">
 <meta property="og:site_name" content="Yuang2714的博客">
 
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Init">
+<meta name="twitter:title" content="写了好几个MC模组才开始学习Gradle?">
 
 
 <!-- Theme Color -->
@@ -114,7 +114,7 @@
         <div class="page-layout">
           <article class="post">
   <header class="post-header">
-  <h1 class="post-title">Init</h1>
+  <h1 class="post-title">写了好几个MC模组才开始学习Gradle?</h1>
 
   <div class="post-meta">
     <span class="meta-item">
@@ -142,15 +142,28 @@
     <nav class="toc">
   <h3 class="toc-title">目录</h3>
   <div class="toc-list">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Initial-Post"><span class="toc-text">Initial Post</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%BC%80%E6%96%87%E6%A1%A3%EF%BC%8C%E5%BC%80%E8%AF%BB"><span class="toc-text">打开文档，开读</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Gradle-Wrapper"><span class="toc-text">Gradle Wrapper</span></a></li></ol></li></ol>
   </div>
 </nav>
 
   
 
   <div class="post-content">
-  <h1 id="Initial-Post"><a href="#Initial-Post" class="headerlink" title="Initial Post"></a>Initial Post</h1><p>头一次用Pages做网站</p>
-<p>不定时更新把，最近我也没什么可以做的事情了</p>
+  <p>构建模组总会用到Gradle，然而它的复杂性却劝退了不少新手</p>
+<p>所以我今天心血来潮，准备彻底吃透Gradle</p>
+<p>正好老师暑假也留了自选英文阅读作业</p>
+<p>到时候开学，别人拿出来的都是老套的小说、书籍</p>
+<p>而我：Gradle Documentation！</p>
+<p>就很……你们懂吧（</p>
+<h3 id="打开文档，开读"><a href="#打开文档，开读" class="headerlink" title="打开文档，开读"></a>打开文档，开读</h3><p>Gradle的设计无疑是新颖的。从官网提供的流程图来看，它把构建流程拆分为一个个的”任务“。</p>
+<p>首先文档带入的是项目结构。   <code>gradle</code>目录和两个<code>gradlew</code>脚本标志着这是一个Gradle项目，而两个<code>.gradle</code>配置文件则指导Gradle构建应用。</p>
+<h4 id="Gradle-Wrapper"><a href="#Gradle-Wrapper" class="headerlink" title="Gradle Wrapper"></a>Gradle Wrapper</h4><p>这部分我倒是挺好奇的。为什么要专门搞一个包装层呢？</p>
+<p>而且Gradle官方也推荐使用这种方式构建。</p>
+<p>我感觉是：Gradle的另一大特点是与IDE集成，所以对于IDE来说，直接调用Gradle深层的代码肯定是一个更好的选择。于是Gradle干脆直接把前后端一刀两断，前端做成两命令行工具，叫做Gradle Wrapper。</p>
+<p>第一章看下来的知识其实还可以应付——我已经早早地在构建模组的过程中熟悉它们了，只是有一些概念需要纠正，比如说我一直以为<code>build.gradle</code>里面的代码都是Gradle自带的。</p>
+<p>这毕竟还是Gradle的文档，所以只学习了Minecraft构建的我显然并没有全部读懂。比如说增量构建，我也许已经用过了这个功能，可是我却一点都不了解它。所以这次我看懂了，颇有一种“原来是你”的感觉。</p>
+<p>我一直有种很奇怪的感觉。好像Gradle很简单，理解几个概念就可以上手了，但是实操上后却冒出来一大堆莫名其妙的报错——偏偏文档里怎么都找不到你的问题。发给AI得到的也是一大堆莫名其妙的答复，折腾半天反倒是雪上加霜。也许这就是社区拉的屎吧。</p>
+<p>算了，时间也不早了，收摊下机睡觉</p>
 
 </div>
 
@@ -158,25 +171,25 @@
   <footer class="post-footer">
   
   
+    <div class="post-tags">
+      <span class="meta-label">标签: </span>
+      
+        <a href="/tags/Gradle/" class="tag">Gradle</a>
+      
+    </div>
+  
 </footer>
 
 
   
 <nav class="post-nav">
   
-    <div class="post-nav-item prev">
-      <span class="post-nav-label">&larr; 上一页</span>
-      <a href="/2026/08/14/%E5%86%99%E4%BA%86%E5%A5%BD%E5%87%A0%E4%B8%AAMC%E6%A8%A1%E7%BB%84%E6%89%8D%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0Gradle/" class="post-nav-title">
-        写了好几个MC模组才开始学习Gradle?
-      </a>
-    </div>
-  
 
   
     <div class="post-nav-item next">
       <span class="post-nav-label">下一页 &rarr;</span>
-      <a href="/2026/08/14/hello-world/" class="post-nav-title">
-        Hello World
+      <a href="/2026/08/14/Init/" class="post-nav-title">
+        Init
       </a>
     </div>
   
