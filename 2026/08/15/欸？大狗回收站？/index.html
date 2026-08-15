@@ -144,7 +144,14 @@
   <p>再不蹭一波热度就要真的没流量了</p>
 <p>直接拿出我最拿手的Swing UI</p>
 <p>技术框架：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flowChart</span><br><span class="line">    b</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    participant a as 用户</span><br><span class="line">    participant b as 窗口JFrame</span><br><span class="line">    participant c as 重写的JPanel</span><br><span class="line">    </span><br><span class="line">    b -&gt;&gt; c: 添加Label</span><br><span class="line">    Note over b: 开始显示</span><br><span class="line">    a -&gt;&gt; c: 拖拽文件</span><br><span class="line">    activate c</span><br><span class="line">    Note over c: 设置图片为ready</span><br><span class="line">    a -&gt;&gt; c: 松手</span><br><span class="line">    Note over c: 设置图片为bark</span><br><span class="line">    Note over c: 扫描文件夹，准备删除</span><br><span class="line">    Note over c: 删除</span><br><span class="line">    alt 成功</span><br><span class="line">        c -&gt;&gt; a: 删除成功</span><br><span class="line">    else 失败</span><br><span class="line">        c -&gt;&gt; a: 删除失败</span><br><span class="line">    end</span><br><span class="line">    deactivate c</span><br></pre></td></tr></table></figure>
+
+<p>大概就这样，分为两个类</p>
+<p>先写音频。又是一顿各种研究，先是Clip冲突，又是音频格式不支持</p>
+<p>还是用ffmpeg转了码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg.exe -i .\bark.wav -c:a pcm_s16le -ar 44100 -ac 1 .\bark_pcm16.wav</span><br></pre></td></tr></table></figure>
+
+<p>这才勉强放起来。</p>
 
 </div>
 
