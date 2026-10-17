@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="no-referrer">
+
+<title>因为一个小小的+=，我差点重写了整个模组 | Yuang2714的博客</title>
+
+
+
+<meta name="author" content="Yuang2714">
+
+
+
+<!-- Canonical -->
+<link rel="canonical" href="/2026/10/17/%E5%9B%A0%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%B0%8F%E7%9A%84-%EF%BC%8C%E6%88%91%E5%B7%AE%E7%82%B9%E9%87%8D%E5%86%99%E4%BA%86%E6%95%B4%E4%B8%AA%E6%A8%A1%E7%BB%84/">
+
+<!-- Favicon -->
+<link rel="icon" href="/images/favicon.ico">
+
+<!-- RSS -->
+
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="因为一个小小的+=，我差点重写了整个模组">
+<meta property="og:url" content="/2026/10/17/%E5%9B%A0%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%B0%8F%E5%B0%8F%E7%9A%84-%EF%BC%8C%E6%88%91%E5%B7%AE%E7%82%B9%E9%87%8D%E5%86%99%E4%BA%86%E6%95%B4%E4%B8%AA%E6%A8%A1%E7%BB%84/">
+<meta property="og:site_name" content="Yuang2714的博客">
+
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="因为一个小小的+=，我差点重写了整个模组">
+
+
+<!-- Theme Color -->
+<meta name="theme-color" content="#1d1f21">
+<meta name="msapplication-TileColor" content="#1d1f21">
+
+<!-- Stylesheets -->
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<!-- Custom Layout Variables -->
+
+<style>
+:root {
+  --page-width: 90rem;
+  --content-width: 900px;
+  --mobile-padding: 12px;
+}
+</style>
+
+<!-- Analytics -->
+
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+<body class="theme-dark">
+  <div class="container">
+    <header class="header">
+  <div class="header-inner">
+    <div class="header-brand">
+      
+      <a href="/" class="site-title">
+        Yuang2714的博客
+      </a>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <ul class="nav-menu" id="nav-menu">
+        
+          
+          
+            
+            <li class="nav-item">
+              <a href="/"
+                 class="nav-link"
+                 >
+                首页
+              </a>
+            </li>
+            
+              <li class="nav-divider">|</li>
+            
+          
+            
+            <li class="nav-item">
+              <a href="/archives/"
+                 class="nav-link"
+                 >
+                归档
+              </a>
+            </li>
+            
+          
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <main class="main">
+      
+        <div class="page-layout">
+          <article class="post">
+  <header class="post-header">
+  <h1 class="post-title">因为一个小小的+=，我差点重写了整个模组</h1>
+
+  <div class="post-meta">
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+      <time datetime="2026-10-17">
+        2026-10-17
+      </time>
+    </span>
+
+    
+      <span class="meta-item">
+        <svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M21 10.12h-6.78l2.74-2.82c-2.73-2.7-7.15-2.8-9.88-.1-2.73 2.71-2.73 7.08 0 9.79s7.15 2.71 9.88 0C18.32 15.65 19 14.08 19 12.1h2c0 1.98-.88 4.55-2.64 6.29-3.51 3.48-9.21 3.48-12.72 0-3.5-3.47-3.53-9.11-.02-12.58s9.14-3.47 12.65 0L21 3v7.12z"/></svg>
+        <time datetime="2026-10-17">
+          更新于 2026-10-17
+        </time>
+      </span>
+    
+
+    
+  </div>
+</header>
+
+
+  
+    <nav class="toc">
+  <h3 class="toc-title">目录</h3>
+  <div class="toc-list">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81"><span class="toc-text">前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BB%A2%E7%94%9F%E3%81%97%E3%82%88%E3%81%86"><span class="toc-text">転生しよう</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SetUpScreen-java"><span class="toc-text">SetUpScreen.java</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%AE%E7%82%B9%E6%95%B4%E4%B8%AA%E9%87%8D%E5%86%99%EF%BC%9ARecognizationManager-java"><span class="toc-text">差点整个重写：RecognizationManager.java</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%84%E4%B8%AA-%E5%BA%94%E8%AF%A5%E4%B8%8D%E9%9A%BE%E5%90%A7"><span class="toc-text">弄个+&#x3D;应该不难吧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%9C%E9%A1%BA%E4%BE%BF%E6%8C%87%E5%87%BA%E4%BD%A0%E7%9A%84%E5%87%A0%E4%B8%AA%E9%97%AE%E9%A2%98%E2%80%9D"><span class="toc-text">“顺便指出你的几个问题”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDEA%E7%94%A8%E5%AE%9E%E9%99%85%E8%A1%8C%E5%8A%A8%E5%91%8A%E8%AF%89%E6%88%91%E4%BB%80%E4%B9%88%E5%8F%AB%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="toc-text">IDEA用实际行动告诉我什么叫内存泄漏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E2%84%A2%E6%89%8D%E6%98%AF%E7%BB%99%E7%94%A8%E6%88%B7%E8%BF%99%E7%BE%A4%E2%84%A2%E7%9A%84%E4%B9%B1%E6%95%B2%E9%94%AE%E7%9B%98%E7%9A%84%E7%8C%B4%E5%AD%90%E7%94%A8%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-text">这™才是给用户这群™的乱敲键盘的猴子用的代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%81%A9%E3%81%86%E3%81%97%E3%81%A6-%E3%81%A9%E3%81%86%E3%81%97%E3%81%A6"><span class="toc-text">どうして　どうして</span></a></li></ol>
+  </div>
+</nav>
+
+  
+
+  <div class="post-content">
+  <p>又是一个写代码的好日子呀！今天把上次遗留的屎给修了吧<br>Simple Text Chat，启动！</p>
+<h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>这个模组的“遗留代码”属性特别强。</p>
+<p>那时还是炎炎夏日，我找到了一个稀有的小众Minecraft服务器。</p>
+<p>于是我兴高采烈地进去玩了。服里的小伙伴也特别热情，和我不停地嘘寒问暖。</p>
+<p>但是就在我打字的时候，悲剧发生了。</p>
+<p>一个僵尸从我的后方袭来。</p>
+<p>刚刚逃离出生点的我，身上装备蛮好的。但是还来不及把身上东西放一放。</p>
+<p>等我反应过来的时候，已经晚了。</p>
+<p><code>MemDrk_Pal4Kurzh在试图逃离僵尸时被僵尸杀死了</code></p>
+<blockquote>
+<p>あー　また　ダメでした</p>
+</blockquote>
+<blockquote>
+<p>転生しよう</p>
+</blockquote>
+<p>我于是开始寻找有没有成熟的语音转文本模组。</p>
+<p>最开始确实找到了一个。叫什么<a target="_blank" rel="noopener" href="https://www.mcmod.cn/class/21105.html">麦克风语音识别文本输入</a>。但是它使用的whisper模型错误率高的离谱，还只能录一段转一段，太鸡肋了。</p>
+<blockquote>
+<p> あー　また　ダメでした</p>
+</blockquote>
+<blockquote>
+<p>転生しよう</p>
+</blockquote>
+<p>经过一番查找后，我找到了Vosk这个库。</p>
+<p>它既不像Whisper那样错误率高，又不像Sphinx 4那样全是Java代码（那样错误率更高）。</p>
+<p>就决定是你了。Vosk！</p>
+<p>确定好识别引擎后我就开始写了。先是一个设置屏幕，然后是配置、转写、按键绑定、HUD和ModMenu。</p>
+<p><img src="/images/10-17-26-200926.png"></p>
+<p>初期我就是把它当作一个自用的工具，发到网上也只是基操（赚点Modrinth的Revenue）。之后就没有再维护了。</p>
+<h2 id="転生しよう"><a href="#転生しよう" class="headerlink" title="転生しよう"></a>転生しよう</h2><p>作为一个自用模组，我心里毫无疑问是清楚它的每一个设计的。而且我也没收到什么issue，就没当回事。</p>
+<p>直到我今天心血来潮，想优化一下这个模组的“手感”。（初期的模组只要你按错一处就会炸掉）</p>
+<h3 id="SetUpScreen-java"><a href="#SetUpScreen-java" class="headerlink" title="SetUpScreen.java"></a>SetUpScreen.java</h3><p>先把设置界面改一下吧。原来的界面只要你进去了出来就必须得验证，哪怕只是改个小小的模式。</p>
+<blockquote>
+<p>転生しよう</p>
+</blockquote>
+<p><img src="/images/10-17-26-202106.png"></p>
+<p>先加上按钮和初始值，让用户一进界面就熟悉。</p>
+<p><img src="/images/10-17-26-202229.png"></p>
+<p>实时判断设置更改状态，动态激活&#x2F;禁用按钮。完美。</p>
+<h2 id="差点整个重写：RecognizationManager-java"><a href="#差点整个重写：RecognizationManager-java" class="headerlink" title="差点整个重写：RecognizationManager.java"></a>差点整个重写：RecognizationManager.java</h2><p>接下来就到了重头戏了。这篇代码集成了native、多线程调度、变量可见性控制、防死锁、防NPE和一篇代码多用等逆天难点于一体，拿去做考题应该可以当结尾大题了。</p>
+<p>同样的，风险越大收获越大。如果这篇代码优化的好的话，对于手感将会是极大的提升。开干。</p>
+<blockquote>
+<p>転生しよう</p>
+</blockquote>
+<h3 id="弄个-应该不难吧"><a href="#弄个-应该不难吧" class="headerlink" title="弄个+=应该不难吧"></a>弄个<code>+=</code>应该不难吧</h3><p>一轮测试下来，最大的bug莫过于在手动模式下会吞字了。Vosk的转写器会转一句扔一句，加个+&#x3D;给它擦屁股：</p>
+<p><img src="/images/10-17-26-203943.png"></p>
+<p>这一下不得了了。IDEA直接冒出个警告，说是非原子操作。</p>
+<p>那就加个<code>synchronized</code>吧。这玩意可以直接加在代码块上么？可以啊。但是要我弄个<code>(Object)</code>是什么意思？问问deepseek吧。</p>
+<h3 id="“顺便指出你的几个问题”"><a href="#“顺便指出你的几个问题”" class="headerlink" title="“顺便指出你的几个问题”"></a>“顺便指出你的几个问题”</h3><p>这deepseek怎么这么傻？算了，直接把代码贴给它吧。什么叫你 <em>顺便</em> 检查出了6个bug？还有一个是高危bug？哦，那是我新加的变量，忘打<code>volatile</code>了。</p>
+<p>修完了，再发给它检查一遍吧。什么，还有高危漏洞？那就修修修吧。</p>
+<p>从此我开始了一段超出大脑寄存器极限的debug。</p>
+<p>什么叫<code>null + &quot;String&quot;</code> 会变成<code>&quot;nullString&quot;</code>？加个判空！</p>
+<p>什么叫我新加的变量都没有<code>volatile</code>？全部加上！</p>
+<p>什么叫我循环里直接<code>continue</code>就会忙等？怪不得我一关识别就卡死呢！加<code>sleep</code>！</p>
+<p>什么叫如果时机卡的好发送消息就会直接坏半路上？全放一个线程里，看你们怎么抢！</p>
+<p>什么叫在不是<code>Render Thread</code>里调用<code>sendChat()</code>会被拒绝？直接扔给主线程，我还能省点事！</p>
+<p>什么叫用户可能在加载中取消加载？加标志位！加判断！</p>
+<p>什么叫你让我在一个没开始的线程里调用方法？幸好我提前意识到了，这个蓝色大肥鱼！竟然让我写死锁！</p>
+<p>什么叫native的内存不归GC管，要我手动<code>close()</code>？彳亍，关关关！</p>
+<blockquote>
+<p>くりかえし　くりかえし</p>
+</blockquote>
+<blockquote>
+<p>生まれ変わり</p>
+</blockquote>
+<h3 id="IDEA用实际行动告诉我什么叫内存泄漏"><a href="#IDEA用实际行动告诉我什么叫内存泄漏" class="headerlink" title="IDEA用实际行动告诉我什么叫内存泄漏"></a>IDEA用实际行动告诉我什么叫内存泄漏</h3><p>结果修的时候IDEA突然炸了：</p>
+<p><img src="/images/10-17-26-192345.png"></p>
+<p>好吧，算是送给我的一个内存泄漏了吧。</p>
+<p>其实这次泄漏是有原因的。早些时候我贪玩，在“外部库”上点了下“全部展开”。</p>
+<p>这一下可不得了了。IDEA直接把 JDK 25、Minecraft、FabricMC、Netty、LWJGL、Gson什么的库的所有类都展开了。资源管理器的滚动条瞬间坍缩成了一个圆点，拖一下就是界面的天翻地覆。IDEA当时就<code>（未响应）</code>了。</p>
+<p>老夫聊发少年狂，外部库，展开长。OOM，激起千层浪。修 Bug，心发慌；防线程，断愁肠。千防万防，死锁最难防。</p>
+<p>再修几个bug就差不多修好了。</p>
+<h3 id="这™才是给用户这群™的乱敲键盘的猴子用的代码"><a href="#这™才是给用户这群™的乱敲键盘的猴子用的代码" class="headerlink" title="这™才是给用户这群™的乱敲键盘的猴子用的代码"></a>这™才是给用户这群™的乱敲键盘的猴子用的代码</h3><p>改完一大堆bug，这篇代码彻底失去了可读性。默哀。</p>
+<p><img src="/images/10-17-26-214015.png"></p>
+<p>看看侧边栏密密麻麻的蓝绿条，就大概能知道这篇代码有多难读懂了。</p>
+<p>不过跑完一轮测试下来，手感确实好不少。按键发消息变成即时的了，在手动模式下也不会吞字了。</p>
+<p><img src="/images/10-17-26-194228.png"></p>
+<p>就是还有这个小小的重复bug。不过都是小问题。在<code>isRecording</code>变化时加个重置就行了。</p>
+<p><img src="/images/10-17-26-215057.png"></p>
+<p>真是服了这雷霆Vosk的正确率了。</p>
+<p><img src="/images/10-17-26-194839.png"></p>
+<p>原文大意：</p>
+<blockquote>
+<p>喂</p>
+<p>现在好多了吧</p>
+<p>现在只要我说完一句话它就会自动发送了</p>
+<p>有的时候可能会丢字吧可能是我吐字不太清晰</p>
+<p>老实说我还得加个免责声明</p>
+<p>因识别错误造成的社死</p>
+<p>模组作者概不负责</p>
+</blockquote>
+<p>到时候发模组的时候高低得把这段免责声明写上。</p>
+<h2 id="どうして-どうして"><a href="#どうして-どうして" class="headerlink" title="どうして　どうして"></a>どうして　どうして</h2><p>至此，这篇代码已然完成从“个人自用”到“为用户的乱按而武装到牙齿”的蜕变。</p>
+<blockquote>
+<p>ああ　転生が終わった</p>
+</blockquote>
+<blockquote>
+<p>平凡な自分に戻った</p>
+</blockquote>
+<p>下一步就是构建、测试、发更新。</p>
+<p>最后，一个专门为Minecraft聊天而训练的Vosk模型正在训练中，期待后续的更新！</p>
+
+</div>
+
+
+  <footer class="post-footer">
+  
+  
+    <div class="post-tags">
+      <span class="meta-label">标签: </span>
+      
+        <a href="/tags/mcmod/" class="tag">mcmod</a>
+      
+    </div>
+  
+</footer>
+
+
+  
+<nav class="post-nav">
+  
+
+  
+    <div class="post-nav-item next">
+      <span class="post-nav-label">下一页 &rarr;</span>
+      <a href="/2026/08/15/%E6%AC%B8%EF%BC%9F%E5%A4%A7%E7%8B%97%E5%9B%9E%E6%94%B6%E7%AB%99%EF%BC%9F/" class="post-nav-title">
+        欸？大狗回收站？
+      </a>
+    </div>
+  
+</nav>
+
+
+
+  
+    <section class="comments-section">
+  <h3 class="comments-title">评论</h3>
+
+  
+
+  
+
+  
+</section>
+
+  
+</article>
+
+        </div>
+      
+    </main>
+
+    <footer class="footer">
+  <div class="footer-content">
+    <div class="footer-left">
+      
+      <span class="copyright">
+        &copy; 2026 Yuang2714
+      </span>
+    </div>
+
+    <div class="footer-right">
+      
+        <span class="powered">
+          由 Hexo 驱动 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a>
+        </span>
+      
+      
+    </div>
+  </div>
+
+  
+    <div class="footer-social">
+      
+        <a href="https://github.com/Yuang114514" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+      
+      
+      
+      
+        <a href="mailto:achilles.hero.way@outlook.com" class="social-link" aria-label="Email">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+      
+      
+    </div>
+  
+</footer>
+
+  </div>
+
+  <!-- Main Script -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- Search -->
+
+
+<!-- Baidu Analytics -->
+
+
+</body>
+</html>
