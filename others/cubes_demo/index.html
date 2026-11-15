@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>立方体 · 双正四面体 · 正八面体</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;height:100%;overflow:hidden;background:#070b14;
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;}
+  canvas{display:block;}
+
+  #panel{
+    position:fixed;top:18px;left:18px;width:250px;padding:16px 18px;
+    background:rgba(14,21,36,.78);
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    border:1px solid rgba(110,160,255,.22);
+    border-radius:14px;color:#dbe6ff;font-size:13px;
+    user-select:none;box-shadow:0 10px 34px rgba(0,0,0,.55);
+    transition:opacity .25s;
+  }
+  #panel h1{font-size:14px;font-weight:600;letter-spacing:.4px;color:#fff;margin-bottom:4px;}
+  #panel .sub{font-size:11px;line-height:1.6;color:#7f92b8;margin-bottom:12px;}
+  .row{display:flex;align-items:center;gap:9px;padding:7px 4px;border-radius:8px;cursor:pointer;
+       transition:background .18s;}
+  .row:hover{background:rgba(120,170,255,.09);}
+  .row input{width:15px;height:15px;accent-color:#4d8cff;cursor:pointer;flex:none;}
+  .dot{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 8px currentColor;}
+  .row .txt{flex:1;font-size:12.5px;color:#c6d4f0;}
+  .sep{height:1px;background:rgba(120,170,255,.16);margin:10px 2px;}
+  #reset{
+    width:100%;margin-top:6px;padding:8px;border-radius:9px;cursor:pointer;
+    border:1px solid rgba(110,160,255,.35);background:rgba(77,140,255,.14);
+    color:#cfe0ff;font-size:12.5px;font-family:inherit;transition:all .18s;
+  }
+  #reset:hover{background:rgba(77,140,255,.3);color:#fff;}
+  #hint{
+    position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+    color:#5f7295;font-size:12px;letter-spacing:.4px;pointer-events:none;
+  }
+  @media (max-width:520px){
+    #panel{width:calc(100% - 24px);left:12px;top:12px;}
+    #hint{font-size:11px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="panel">
+  <h1>立方体中的两个正四面体</h1>
+  <div class="sub">第二个四面体由第一个绕 Z 轴旋转 90° 得到；<br>二者交集 = 正八面体（金色）。<br>由DeepSeek生成。</div>
+
+  <label class="row"><input type="checkbox" id="chkCube" checked>
+    <span class="dot" style="color:#6fa8ff;background:#6fa8ff"></span>
+    <span class="txt">立方体（棱长 2√2）</span></label>
+
+  <label class="row"><input type="checkbox" id="chkA" checked>
+    <span class="dot" style="color:#ff7a92;background:#ff7a92"></span>
+    <span class="txt">正四面体 A</span></label>
+
+  <label class="row"><input type="checkbox" id="chkB" checked>
+    <span class="dot" style="color:#7cc4ff;background:#7cc4ff"></span>
+    <span class="txt">正四面体 B（旋转 90°）</span></label>
+
+  <div class="sep"></div>
+
+  <label class="row"><input type="checkbox" id="chkO" checked>
+    <span class="dot" style="color:#ffd23f;background:#ffd23f"></span>
+    <span class="txt">交集：正八面体</span></label>
+
+  <div class="sep"></div>
+
+  <label class="row"><input type="checkbox" id="chkRot" checked>
+    <span class="dot" style="color:#9d7bff;background:#9d7bff"></span>
+    <span class="txt">自动旋转</span></label>
+
+  <button id="reset">重置视角</button>
+</div>
+
+<div id="hint">拖拽旋转 · 滚轮缩放 · 右键平移</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+/* ============================================================
+   1. 基础场景
+   ============================================================ */
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x070b14);
+
+const CAM_START = new THREE.Vector3(3.7, 2.9, 4.5);
+
+const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 200);
+camera.position.copy(CAM_START);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping   = true;
+controls.dampingFactor   = 0.075;
+controls.rotateSpeed     = 0.85;
+controls.minDistance     = 2.6;
+controls.maxDistance     = 16;
+controls.autoRotate      = true;
+controls.autoRotateSpeed = 1.0;
+
+/* 灯光 */
+scene.add(new THREE.AmbientLight(0xffffff, 1.4));
+const key = new THREE.DirectionalLight(0xffffff, 2.4); key.position.set(5, 8, 6);   scene.add(key);
+const fill = new THREE.DirectionalLight(0x6688ff, 1.5); fill.position.set(-6, -4, -5); scene.add(fill);
+const rim  = new THREE.DirectionalLight(0xff9a66, 1.0); rim.position.set(-5, 6, -6);  scene.add(rim);
+
+const root = new THREE.Group();
+scene.add(root);
+
+/* ============================================================
+   2. 几何数据
+   ------------------------------------------------------------
+   立方体：顶点 (±1, ±1, ±1)
+   四面体 A：立方体的 4 个交替顶点，棱长 2√2
+   四面体 B：A 绕 Z 轴旋转 90°：(x,y,z) → (-y,x,z)
+   交集：正八面体，顶点位于立方体 6 个面的中心
+   ============================================================ */
+
+// 四面体顶点（索引 0..3）
+const TETRA_VERTS = [
+  [ 1,  1,  1],
+  [ 1, -1, -1],
+  [-1,  1, -1],
+  [-1, -1,  1]
+];
+// 四面体的 4 个三角面
+const TETRA_FACES = [[0,1,2], [0,2,3], [0,3,1], [1,3,2]];
+
+// 四面体 B = A 绕 Z 轴旋转 90°
+const TETRA_VERTS_B = TETRA_VERTS.map(([x, y, z]) => [-y, x, z]);
+
+// 正八面体顶点（立方体面心）
+const OCTA_VERTS = [
+  [ 1, 0, 0], [-1, 0, 0],
+  [ 0, 1, 0], [ 0,-1, 0],
+  [ 0, 0, 1], [ 0, 0,-1]
+];
+// 正八面体的 8 个三角面
+const OCTA_FACES = [
+  [0,2,4], [2,1,4], [1,3,4], [3,0,4],
+  [2,0,5], [1,2,5], [3,1,5], [0,3,5]
+];
+
+/* ============================================================
+   3. 构建工具
+   ============================================================ */
+
+/** 由顶点 + 面索引生成一个「凸多面体」实体（面自动朝外） */
+function makeSolid({ verts, faces, color, opacity, edgeColor, edgeOpacity = 1, glow = 0.18 }) {
+  const vs = verts.map(p => new THREE.Vector3(p[0], p[1], p[2]));
+  const positions = [];
+
+  for (const [ia, ib, ic] of faces) {
+    const a = vs[ia], b = vs[ib], c = vs[ic];
+    // 法线
+    const n = new THREE.Vector3()
+      .subVectors(b, a)
+      .cross(new THREE.Vector3().subVectors(c, a));
+    // 面重心（模型以原点为中心，用重心判断朝外方向）
+    const cen = new THREE.Vector3().addVectors(a, b).add(c).multiplyScalar(1 / 3);
+
+    let B = b, C = c;
+    if (n.dot(cen) < 0) { B = c; C = b; }   // 翻转绕序，保证法线朝外
+
+    positions.push(a.x, a.y, a.z, B.x, B.y, B.z, C.x, C.y, C.z);
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.computeVertexNormals();
+
+  const mat = new THREE.MeshStandardMaterial({
+    color,
+    emissive: new THREE.Color(color).multiplyScalar(glow),
+    transparent: true,
+    opacity,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+    roughness: 0.35,
+    metalness: 0.0,
+    flatShading: true
+  });
+
+  const mesh = new THREE.Mesh(geo, mat);
+
+  // 手工提取唯一边 → 干净锐利的棱线
+  const edgeGeo = makeEdgeGeometry(verts, faces);
+  const edges = new THREE.LineSegments(edgeGeo, new THREE.LineBasicMaterial({
+    color: edgeColor, transparent: true, opacity: edgeOpacity
+  }));
+
+  const g = new THREE.Group();
+  g.add(mesh, edges);
+  return g;
+}
+
+/** 从面集合中提取不重复的棱，生成线框几何 */
+function makeEdgeGeometry(verts, faces) {
+  const seen = new Set();
+  const pos = [];
+  const add = (p, q) => {
+    const k = p < q ? `${p}_${q}` : `${q}_${p}`;
+    if (seen.has(k)) return;
+    seen.add(k);
+    pos.push(verts[p][0], verts[p][1], verts[p][2],
+             verts[q][0], verts[q][1], verts[q][2]);
+  };
+  for (const [a, b, c] of faces) { add(a, b); add(b, c); add(c, a); }
+
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  return g;
+}
+
+/* ============================================================
+   4. 创建各个实体
+   ============================================================ */
+
+/* --- 立方体 --- */
+const cubeGeo = new THREE.BoxGeometry(2, 2, 2);
+const cubeMesh = new THREE.Mesh(cubeGeo, new THREE.MeshStandardMaterial({
+  color: 0x88bbff,
+  transparent: true,
+  opacity: 0.05,
+  side: THREE.DoubleSide,
+  depthWrite: false,
+  roughness: 0.15,
+  metalness: 0.0
+}));
+const cubeEdges = new THREE.LineSegments(
+  new THREE.EdgesGeometry(cubeGeo),
+  new THREE.LineBasicMaterial({ color: 0x6fa8ff, transparent: true, opacity: 0.85 })
+);
+const cubeGroup = new THREE.Group();
+cubeGroup.add(cubeMesh, cubeEdges);
+
+/* --- 正四面体 A（红） --- */
+const tetraA = makeSolid({
+  verts: TETRA_VERTS,
+  faces: TETRA_FACES,
+  color: 0xff4d6d,
+  opacity: 0.15,
+  edgeColor: 0xff8098,
+  edgeOpacity: 0.95,
+  glow: 0.15
+});
+
+/* --- 正四面体 B（蓝） --- */
+const tetraB = makeSolid({
+  verts: TETRA_VERTS_B,
+  faces: TETRA_FACES,
+  color: 0x3fa9ff,
+  opacity: 0.15,
+  edgeColor: 0x86cbff,
+  edgeOpacity: 0.95,
+  glow: 0.15
+});
+
+/* --- 交集：正八面体（金） --- */
+const octa = makeSolid({
+  verts: OCTA_VERTS,
+  faces: OCTA_FACES,
+  color: 0xffd23f,
+  opacity: 0.55,
+  edgeColor: 0xffe98a,
+  edgeOpacity: 1.0,
+  glow: 0.3
+});
+
+root.add(cubeGroup, tetraA, tetraB, octa);
+
+/* 固定绘制顺序，避免半透明物体闪烁 */
+function setRenderOrder(group, order) {
+  group.traverse(o => { o.renderOrder = order; });
+}
+setRenderOrder(cubeGroup, 0);
+setRenderOrder(tetraA,    1);
+setRenderOrder(tetraB,    2);
+setRenderOrder(octa,      3);
+
+/* ============================================================
+   5. 交互控制
+   ============================================================ */
+const bindToggle = (id, obj) => {
+  const el = document.getElementById(id);
+  el.addEventListener('change', () => { obj.visible = el.checked; });
+};
+bindToggle('chkCube', cubeGroup);
+bindToggle('chkA',    tetraA);
+bindToggle('chkB',    tetraB);
+bindToggle('chkO',    octa);
+
+document.getElementById('chkRot').addEventListener('change', e => {
+  controls.autoRotate = e.target.checked;
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  camera.position.copy(CAM_START);
+  controls.target.set(0, 0, 0);
+  controls.update();
+});
+
+/* ============================================================
+   6. 渲染循环
+   ============================================================ */
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
